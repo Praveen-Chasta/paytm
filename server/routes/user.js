@@ -25,10 +25,10 @@ const updateBody = zod.object({
 })
 
 router.post("/signup", async (req, res) => {
-    const { success } = signupBody.safeParse(req.body)
+    const { success, error } = signupBody.safeParse(req.body)
     if (!success) {
         return res.status(411).json({
-            message: "Incorrect inputs"
+            error: "Incorrect inputs",
         })
     }
 
@@ -38,7 +38,8 @@ router.post("/signup", async (req, res) => {
 
     if (existingUser) {
         return res.status(411).json({
-            message: "Email already taken"
+            error: "Email already taken",
+            
         })
     }
 
@@ -49,13 +50,15 @@ router.post("/signup", async (req, res) => {
         lastName: req.body.lastName,
     })
     const userId = user._id;
-    
+    const username = user.username
+
     await Account.create({
         userId,
+        username,
         balance: 1 + Math.random() * 10000
     })
 
-    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1M' })
+    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' })
     
     console.log(token)
 
@@ -66,39 +69,34 @@ router.post("/signup", async (req, res) => {
 })
 
 
-router.post('/signin', async (req,res) => {
-    const {success, error} = signinBody.safeParse(req.body)
-
-    if(!success){
-        return res.status(411).json({
-            msg : "Invalid Inputs",
-            error : error.errors
-        })
+router.post('/signin', async (req, res) => {
+    const { username, password } = req.body;
+  
+    try {
+      const user = await User.findOne({ username, password });
+  
+      if (!user) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+  
+      const account = await Account.findOne({ userId: user._id });
+  
+      if (!account) {
+        return res.status(404).json({ error: 'Account not found' });
+      }
+  
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+  
+      res.json({
+        message: 'Login successful',
+        token,
+        balance: account.balance, // Include balance in response
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Server error' });
     }
+  });
 
-    const user = await User.findOne({
-        username : req.body.username,
-        password : req.body.password
-    })
-
-    if (user) {
-        const token = jwt.sign({
-            userId: user._id
-        }, JWT_SECRET);
-
-        res.json({
-            msg : "Login successfully",
-            token: token
-        })
-        return;
-    }
-
-
-    res.status(411).json({
-        message: "Error while logging in"
-    })
-
-})
 
 router.put("/update", authMiddleware, async (req, res) => {
     const { success } = updateBody.safeParse(req.body)
@@ -116,12 +114,15 @@ router.put("/update", authMiddleware, async (req, res) => {
     })
 })
 
+
+
+
 router.get('/bulk', async (req,res) => {
     const filter = req.query.filter || "";
 
     const user = await User.find({
         $or : [{
-            firstNmae : {
+            firstName : {
                 "$regex" : filter               // $ regex ==> regular expression
             },
             lastName : {

@@ -1,38 +1,519 @@
-.App {
-  text-align: center;
+.bg-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #f2f2f2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+ul{
+  margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.Home-component{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Navbar Starts */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Logo styling */
+.navbar-logo a {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Navbar links container */
+.navbar-links {
+  display: flex;
+  list-style: none;
+}
+
+/* Individual link styling */
+.navbar-links li {
+  margin-left: 20px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.navbar-links a:hover {
+  color: #f0a500;
+}
+
+/* Toggle button styling */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.navbar-toggle .bar {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar-links {
+      flex-direction: column;
+      position: absolute;
+      top: 36px;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      display: none;
+      padding-left: 0;
+  }
+
+  .navbar-links.active {
+      display: flex;
+  }
+
+  .navbar-links li {
+      width: 100%;
+      text-align: center;
+      margin: 10px 0;
+  }
+
+  .navbar-toggle {
+      display: flex;
+  }
+
+  /* Change toggle button to X when active */
+  .navbar-toggle.active .bar:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+  }
+
+  .navbar-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+  }
+
+  .navbar-toggle.active .bar:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+  }
+
+  .Home-component h1{
+    font-size: 18px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar-links .active-link {
+  color: #007BFF; 
+}
+
+/* Navbar Ends */
+
+/* Signup Page Starts*/
+
+.sign-up-form-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100vh;
+  background-color: #f2f2f2;
+}
+
+
+.form-element {
+  background: #ffffff;
+  padding: 20px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  height: auto;
+}
+
+.sign-up-heading{
+  text-align: center;
+  font-family: 'Lora', serif;
+  font-weight: bold;
+  font-size: 28px;
+}
+
+
+.form-element label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.input-field {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+
+.password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-container .input-field {
+  flex: 1;
+  padding-right: 40px; 
+}
+
+.toggle-password {
+  position: absolute;
+  right: 5px;
+  bottom: 25px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: #007BFF;
+}
+
+
+
+.submit-button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Signup Page Ends*/
+
+/* Login Page Starts*/
+
+.login-message {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.login-link {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+
+.login-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f2f2f2;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.login-form-element {
+  background: #ffffff;
+  padding: 20px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+
+.login-heading {
+  text-align: center;
+  font-family: 'Lora', serif;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+.login-form-element label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Lora', serif;
+}
+
+
+.login-input-field {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.login-input-field:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+
+.login-password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.login-password-container .login-input-field {
+  flex: 1;
+  padding-right: 40px; 
+}
+
+.login-toggle-password {
+  position: absolute;
+  right: 5px;
+  bottom: 25px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.login-toggle-password:hover {
+  color: #007BFF;
+}
+
+
+.login-captcha-container {
+  margin-bottom: 16px;
+}
+
+
+.login-submit-button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-submit-button:hover {
+  background-color: #0056b3;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.logout-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.3rem 1rem; 
+  border-radius: 0.25rem; 
+  cursor: pointer;
+  font-size: 1rem; 
+}
+
+.logout-button:hover {
+  background-color: #0056b3; 
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+.remember-me {
+  display: flex;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.remember-me input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.remember-me label{
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.forgot-password{
+  margin-bottom: 12px;
+}
+
+.forgot-password .resetLink {
+  font-weight: bold;
+  color: #333;
+  font-family: 'Lora', serif;
+  text-decoration: none;
+
+}
+
+
+.forgot-password .resetLink:hover {
+  color:red;
+}
+
+
+
+/* Login Page Ends */
+
+
+/* Dashboard Starts */
+
+
+
+.dashboard-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box; 
+}
+
+
+.search-input {
+  margin-bottom: 20px;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #80bdff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+.action-cell {
+  text-align: center;
+}
+
+.action-icon {
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 18px;
+}
+
+.edit-icon {
+  color: #28a745; 
+}
+
+.delete-icon {
+  color: #dc3545; 
+}
+
+
+.error {
+  color: red;
+}
+
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    width: 95%;
+    padding: 15px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .search-input {
+    max-width: 100%; 
+    font-size: 14px; 
   }
+
+  .data-table th, .data-table td {
+    font-size: 12px; 
+  }
+
+  .action-icon {
+    font-size: 16px; 
+  }
+}
+
+@media (max-width: 576px) {
+  .search-input {
+    font-size: 12px; 
+  }
+
+  .data-table th, .data-table td {
+    font-size: 10px; 
+  }
+
+  .action-icon {
+    font-size: 14px; 
+  }
+}
+
+
+.email-verify{
+  font-size: 1.5rem;
+  font-family: "Roboto";
 }

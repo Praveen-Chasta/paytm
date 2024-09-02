@@ -13,7 +13,11 @@ app.use(cors());
 app.use(express.json());
 app.use("/", rootrouter)
 
-mongoose.connect(url)
+mongoose.connect(url, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // replicaSet: 'rs0'  
+  })
     .then(() => {
         console.log('Connected successfully to MongoDB with Mongoose');
 
