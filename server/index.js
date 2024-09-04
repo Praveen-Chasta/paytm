@@ -3,7 +3,7 @@ const cors = require("cors");
 const rootrouter = require("./routes/index")
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017/paytm';
+const url = 'mongodb+srv://PraveenChasta:W4A9w4SqbdRZrqCL@cluster0.zg5y6pc.mongodb.net/paytm';
 
 const app = express();
 const PORT = 8000;

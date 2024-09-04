@@ -6,7 +6,7 @@ export const Appbar = () => {
   const user = useRecoilValue(userFriendsState);
 
   // Extract the first letter of the username
-  const firstLetter = user?.username?.charAt(0).toUpperCase() || 'U'; // Default to 'U' if username is not available
+  const firstLetter = user?.username?.charAt(0).toUpperCase() || 'P'; 
 
   return (
     <div className="shadow h-14 flex justify-between">

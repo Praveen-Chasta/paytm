@@ -91,6 +91,7 @@ router.post('/signin', async (req, res) => {
         message: 'Login successful',
         token,
         balance: account.balance, // Include balance in response
+        userId: user._id
       });
     } catch (error) {
       res.status(500).json({ error: 'Server error' });
@@ -117,29 +118,31 @@ router.put("/update", authMiddleware, async (req, res) => {
 
 
 
-router.get('/bulk', async (req,res) => {
+// Assuming you have a middleware to decode the JWT and add the userId to req.user
+router.get('/bulk', authMiddleware, async (req, res) => {
     const filter = req.query.filter || "";
+    const loggedInUserId = req.user.userId; // Access userId from req.user
 
-    const user = await User.find({
-        $or : [{
-            firstName : {
-                "$regex" : filter               // $ regex ==> regular expression
-            },
-            lastName : {
-                "$regex" : filter               // $ regex ==> regular expression
-            }
-        }]
-    })
+    try {
+        const users = await User.find({
+            _id: { $ne: loggedInUserId }, // Exclude the logged-in user
+            $or: [
+                { firstName: { "$regex": filter, "$options": "i" } }, // Include case-insensitive flag
+                { lastName: { "$regex": filter, "$options": "i" } }  // Include case-insensitive flag
+            ]
+        });
 
-    res.json({
-        user : user.map(user => ({
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            _id: user._id
-        }))
-    })
-})
-
+        res.json({
+            user: users.map(user => ({
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                _id: user._id
+            }))
+        });
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching users', error: err.message });
+    }
+});
 
 module.exports = router;

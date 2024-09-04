@@ -41,7 +41,7 @@ function Signin() {
         setUser({
           userId,
           username,
-          balance: Math.floor(response.data.balance) // Ensure balance is an integer
+          balance: Math.round(response.data.balance * 100) / 100
         });
 
         toast.success("Login Successfully");
